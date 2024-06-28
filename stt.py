@@ -52,16 +52,22 @@ if not is_testing:
     username = ""
     oauth = ""
 
-    key_usage = input("Use key.txt? [Y/n]: ").lower()
-    key_usage = (key_usage == "") or (key_usage == "y")
+    key_usage = input("Use key.txt? [Y/n/s]: ").lower()
+    specific_key = key_usage == "s"
+    standard_key = (key_usage == "") or (key_usage == "y")
 
-    if key_usage:
+    if specific_key or standard_key:
         try:
             if getattr(sys, "frozen", False):
                 app_path = os.path.dirname(sys.executable)
             else:
                 app_path = os.path.dirname(__file__)
-            with open(os.path.join(app_path, "key.txt")) as file:
+
+            key = "key.txt"
+            if specific_key:
+                key = input("Key-file: ")
+
+            with open(os.path.join(app_path, key)) as file:
                 lines = [line.rstrip() for line in file]
                 username = lines[0]
                 oauth = lines[1]

@@ -2,6 +2,7 @@ import argparse
 import queue
 import sys
 import os
+import datetime
 
 import sounddevice as sd
 
@@ -14,11 +15,101 @@ raw_mic_q = queue.Queue()
 write_q = queue.Queue()
 
 
+def write_log(message):
+    try:
+        if getattr(sys, "frozen", False):
+            app_path = os.path.dirname(sys.executable)
+        else:
+            app_path = os.path.dirname(__file__)
+
+        with open(os.path.join(app_path, "messages_log.txt"), "a") as file:
+            file.write(str(datetime.datetime.now()) + ": " + message + "\n")
+
+    except Exception as e:
+        print(e)
+
+
 def twitch_send_message(message):
-    if is_testing:
-        print(message)
-    else:
-        twitch_connection.send(channel, message)
+    twitch_connection.send(channel, message)
+
+
+def apply_dict(message):
+    message_parts = message.split(" ")
+
+    glued_words = []
+
+    with open("dict.txt") as file:
+        for line in file:
+            is_glued = line.find("+") != -1
+
+            line_content = line.rstrip().split("=")
+
+            if len(line_content) != 2:
+                break
+
+            first = line_content[0]
+            second = line_content[1]
+
+            if (
+                (first.find("[") == -1)
+                or (first.find("]") == -1)
+                or (second.find("[") == -1)
+                or (second.find("]") == -1)
+            ):
+                break
+
+            first = first[first.index("[") + 1 : first.index("]")]
+            second = second[second.index("[") + 1 : second.index("]")]
+
+            for i in range(len(message_parts)):
+                if message_parts[i] == first:
+                    message_parts[i] = second
+
+                    if is_glued:
+                        glued_words.append(i)
+
+                if len(first.split(" ")) != 0:
+                    first_parts = first.split(" ")
+
+                    check = False
+                    for j in range(len(first_parts)):
+                        if i + j >= len(message_parts):
+                            check = True
+                            break
+
+                        if message_parts[i + j] != first_parts[j]:
+                            check = True
+                            break
+
+                    if not check:
+                        message_parts[i] = second
+
+                        if is_glued:
+                            glued_words.append(i)
+
+                        for k in range(i + 1, i + len(first_parts)):
+                            message_parts[k] = ""
+
+    list.sort(glued_words, reverse=True)
+
+    while "" in message_parts:
+        index = message_parts.index("")
+
+        for i in range(len(glued_words)):
+            if glued_words[i] > index:
+                glued_words[i] = glued_words[i] - 1
+
+        message_parts.remove("")
+
+    for i in glued_words:
+        if i > 0:
+            message_parts[i - 1] = message_parts[i - 1] + message_parts[i]
+            message_parts[i] = ""
+
+    while "" in message_parts:
+        message_parts.remove("")
+
+    return " ".join(message_parts)
 
 
 def handle_raw_mic_q():
@@ -36,7 +127,14 @@ def handle_raw_mic_q():
 def handle_write_q():
     if not write_q.empty():
         message = write_q.get()
-        twitch_send_message(message)
+        processed_message = apply_dict(message)
+
+        write_log(message + "   ->   " + processed_message)
+
+        if is_testing:
+            print(processed_message)
+        else:
+            twitch_send_message(processed_message)
 
 
 def callback(indata, frames, time, status):

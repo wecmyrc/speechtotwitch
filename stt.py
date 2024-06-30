@@ -3,6 +3,7 @@ import queue
 import sys
 import os
 import datetime
+import codecs
 
 import sounddevice as sd
 
@@ -38,7 +39,12 @@ def apply_dict(message):
 
     glued_words = []
 
-    with open("dict.txt") as file:
+    if getattr(sys, "frozen", False):
+        app_path = os.path.dirname(sys.executable)
+    else:
+        app_path = os.path.dirname(__file__)
+
+    with codecs.open(os.path.join(app_path, "dict.txt"), "r", "utf-8") as file:
         for line in file:
             is_glued = line.find("+") != -1
 

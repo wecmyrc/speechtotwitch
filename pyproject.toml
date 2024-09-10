@@ -1,0 +1,39 @@
+[tool.poetry]
+name = "stt"
+version = "2.0.0-beta-0"
+description = "Speech to twitch chat"
+authors = ["wecmyrc <wecmyrc@gmail.com>"]
+readme = "README.md"
+license = "MIT"
+packages = [
+  { include = "stt" },
+  { include = "base_logger" },
+  { include = "process_message" },
+  { include = "db/*.py" },
+  { include = "voice" },
+  { include = "wgui" },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.12,<4.0"
+vosk = "0.3.45"
+flask = "2.0.1"
+dash = "2.15.0"
+dash-html-components = "2.0.0"
+dash-mantine-components = "0.14.4"
+werkzeug = "2.0.1"
+dash-iconify = "0.1.2"
+pytz = "2024.1"
+notify-py = "0.3.43"
+twitch-chat-irc = "0.0.4"
+pyaudio = "0.2.14"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+stt = "stt.stt:main"
+voice = "voice.voice:main"
+wgui = "wgui.wgui:main"
+

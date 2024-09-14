@@ -1,3 +1,4 @@
+
 # Speech to twitch
 
 Распознавание речи и отправка в чат канала twitch
@@ -5,7 +6,7 @@
 Особенности:
 
  - Web-GUI на основе [Flask](https://flask.palletsprojects.com/en/3.0.x/), [Dash](https://dash.plotly.com/) и [DMC](https://www.dash-mantine-components.com/)
- - Оффлайн распознование речи с использованием [vosk](https://alphacephei.com/vosk/)
+ - Оффлайн распознавание речи с использованием [vosk](https://alphacephei.com/vosk/)
  - Все данные хранятся локально в базе данных [sqlite](https://www.sqlite.org/)
  - Возможность быстрого переключения между пользователями и каналами
  - Хранение всех отправленных сообщений
@@ -73,3 +74,7 @@ nix run github:wecmyrc/speechtotwitch
 
 - Windows: `/base_logger/stt.log` в папке с исходным кодом
 - Linux: `~/.stt/stt.log`
+
+## Возможные проблемы
+
+При использовании PipeWire может не захватываться звук с микрофона

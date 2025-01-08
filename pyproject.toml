@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "stt"
-version = "2.0.0-beta-0"
+version = "2.0.0-beta-1"
 description = "Speech to twitch chat"
 authors = ["wecmyrc <wecmyrc@gmail.com>"]
 readme = "README.md"

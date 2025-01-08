@@ -1,4 +1,4 @@
-# [note] in future add info log level for each function and add log-level option
+# NOTE in future add info log level for each function and add log-level option
 
 from db.base import db_connect, try_query
 
@@ -155,7 +155,7 @@ def set_mic_on(new_value):
             data=data,
         )
 
-        return (result[0], new_value)  # [note] in every set function return new_value
+        return (result[0], new_value)  # NOTE in every set function return new_value
 
 
 def mic_on():

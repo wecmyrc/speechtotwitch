@@ -441,7 +441,7 @@ def check_channel_in_use_on_delete(
 ):
     error = False
 
-    # [note] this callback fires when button didnt click
+    # NOTE this callback fires when button didnt click
 
     patched_toggle_twitch_button_disabled = dash.Patch()
     patched_toggle_twitch_button_color = dash.Patch()

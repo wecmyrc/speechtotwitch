@@ -1,4 +1,4 @@
-# [note] add db encryption and password access
+# NOTE add db encryption and password access
 
 import os
 import sys

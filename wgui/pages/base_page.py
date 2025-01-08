@@ -266,7 +266,7 @@ def base_page(location):
                                                     [
                                                         dmc.Text(
                                                             children=[
-                                                                "Распознование речи",
+                                                                "Распознавание речи",
                                                             ],
                                                         ),
                                                     ]
@@ -276,7 +276,7 @@ def base_page(location):
                                             zIndex=12000,
                                         ),
                                         span="content",
-                                        mb=-4,  # [note] rewrite in future
+                                        mb=-4,  # NOTE rewrite in future
                                     ),
                                     dmc.GridCol(
                                         dmc.Button(
@@ -351,7 +351,7 @@ def base_page(location):
                                             zIndex=12000,
                                         ),
                                         span="content",
-                                        mb=-4,  # [note] rewrite in future
+                                        mb=-4,  # NOTE rewrite in future
                                     ),
                                 ],
                             ),

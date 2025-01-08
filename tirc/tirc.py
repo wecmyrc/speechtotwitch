@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+#
+# Fixed Python-twitch-stream library https://github.com/317070/python-twitch-stream
+#
+
 """
 This file contains the python code used to interface with the Twitch
 chat. Twitch chat is IRC-based, so it is basically an IRC-bot, but with
@@ -112,7 +116,7 @@ class TwitchChatStream(object):
             data,
         )
 
-    def connect(self):
+    def connect(self, channel):
         """
         Connect to Twitch
         """
@@ -153,10 +157,10 @@ class TwitchChatStream(object):
             if self.s is not None:
                 self.s.close()  # close the previous socket
             self.s = s  # store the new socket
-            self.join_channel(self.username)
+            self.join_channel(channel)
 
             # Wait until we have switched channels
-            while self.current_channel != self.username:
+            while self.current_channel != channel:
                 self.twitch_receive_messages()
 
     def _push_from_buffer(self):
@@ -208,7 +212,9 @@ class TwitchChatStream(object):
 
         :param message: String to send (don't use \\n)
         """
-        self._send("PRIVMSG #{0} :{1}".format(self.username, message))
+        self._send(
+            "PRIVMSG #{0} :{1}".format(self.current_channel, message)
+        )  # NOTE this is important
 
     def _parse_message(self, data):
         """

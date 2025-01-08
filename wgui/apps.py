@@ -25,7 +25,7 @@ def create_dash_app(flask_app):
     dash_app = dash.Dash(
         __name__,
         server=flask_app,
-        suppress_callback_exceptions=True,  # [note] check this
+        suppress_callback_exceptions=True,  # NOTE check this
         external_stylesheets=stylesheets,
     )
 

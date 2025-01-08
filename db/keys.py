@@ -128,7 +128,7 @@ def keys_entries(search_value, active_page, keys_on_page):
         return result
 
 
-# [note] previously was check for username and oauth
+# NOTE previously was check for username and oauth
 def is_keys_entry_exists(username):
     with db_connect() as cursor:
         query = """

@@ -102,7 +102,7 @@ def main_form():
                             value=current_username_in_use,
                             disabled=True if current_username_in_use else False,
                             size="md",
-                            # [note] read about allowDeselect
+                            # NOTE read about allowDeselect
                         ),
                         span="auto",
                     ),

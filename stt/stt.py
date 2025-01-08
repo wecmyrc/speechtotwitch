@@ -46,12 +46,12 @@ def main():
 
     if sys.platform == "win32":
         pl.append(sp.Popen(["poetry", "run", "wgui"]))
-        time.sleep(0.2)  # [note] sleep for clean init print
+        time.sleep(0.2)  # NOTE sleep for clean init print
         pl.append(sp.Popen(["poetry", "run", "voice"]))
 
     elif sys.platform.startswith("linux"):
         pl.append(sp.Popen(["wgui"]))
-        time.sleep(0.2)  # [note] sleep for clean init print
+        time.sleep(0.2)  # NOTE sleep for clean init print
         pl.append(sp.Popen(["voice"]))
 
     print("\nPress Ctrl-C to close\n")

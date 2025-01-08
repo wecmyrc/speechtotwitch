@@ -230,7 +230,7 @@ def dict_pagination_pages(search_value, dict_entries_on_page):
             data=data,
         )
 
-        # [note] probably rewrite this in future
+        # NOTE probably rewrite this in future
         if dict_entries_on_page == 0:
             dict_entries_on_page = 10
 

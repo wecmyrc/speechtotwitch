@@ -10,17 +10,17 @@ import signal
 import json
 import time
 
-# i don't know why, but import below this doesn't work
+# i don't know why, but the import below doesn't work
 # from twitchstream.chat import TwitchChatStream
 
-# so i copied code to local module and it just works
-from tirc import TwitchChatStream
+# so i copied the code to a local module and it just works
+from tirc.tirc import TwitchChatStream
 
 import pyaudio as pa
 
 from vosk import Model, KaldiRecognizer, SetLogLevel
 
-SetLogLevel(-1)  # [note] read file vosk_api.h in source code
+SetLogLevel(-1)  # NOTE read file vosk_api.h in source code
 
 from process_message import process_message
 import db.settings
@@ -74,8 +74,7 @@ class TwitchConnection:
                     oauth=self.oauth,
                     verbose=False,
                 )
-                self.connection.connect()
-                self.connection.join_channel(self.channel)
+                self.connection.connect(self.channel)
                 self.is_connected = True
 
     def send_message(self, message):
@@ -101,7 +100,7 @@ class Voice:
         self.twitch = TwitchConnection()
         signal.signal(signal.SIGTERM, self.exit)
 
-    # [note] rewrite from sounddevice to pyaudio
+    # NOTE rewrite from sounddevice to pyaudio
     def callback(self, indata, frames, time, status):
         if status:
             print(status, file=sys.stderr)
@@ -172,10 +171,10 @@ class Voice:
 
     def _read(
         self, rec, out
-    ):  # [note] look at https://people.csail.mit.edu/hubert/pyaudio/#sources wire(callback)
+    ):  # NOTE look at https://people.csail.mit.edu/hubert/pyaudio/#sources wire(callback)
         try:
             while not self.to_exit:
-                time.sleep(0.1)  # [note] for low cpu usage
+                time.sleep(0.1)  # NOTE for low cpu usage
 
                 data = out.read(16000)
 
@@ -212,7 +211,7 @@ class Voice:
 
     def exit(self, signum, frame):
         self.to_exit = True
-        self.stream.close()  # [note] https://people.csail.mit.edu/hubert/pyaudio/
+        self.stream.close()  # NOTE https://people.csail.mit.edu/hubert/pyaudio/
 
 
 def main():

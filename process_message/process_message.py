@@ -41,7 +41,7 @@ def apply_settings(
 ):
     if (
         message == None or message == "" or message == str()
-    ):  # [note] maybe simply if not message?
+    ):  # NOTE maybe simply if not message?
         return message
 
     if settings["use_blacklist"]:

@@ -337,7 +337,7 @@ def handle_search_input_clear_action(n_clicks):
     return patched_search_input_value
 
 
-# [note] seriously rewrite this piece of garbage with multiple callbacks and allow_duplicate
+# NOTE seriously rewrite this piece of garbage with multiple callbacks and allow_duplicate
 
 
 @dash.callback(
@@ -392,7 +392,7 @@ def handle_add_key_button(
 
     patched_keys_list_children = dash.Patch()
     patched_pagination_total = dash.Patch()
-    patched_pagination_value = dash.Patch()  # [note] no need
+    patched_pagination_value = dash.Patch()  # NOTE no need
     patched_already_exist_modal_opened = dash.Patch()
 
     if dash.callback_context.triggered_id == "keys_page_keys_on_page_input":
@@ -461,7 +461,7 @@ def handle_add_key_button(
     )
 
 
-# [note] add modal with message that key was in use
+# NOTE add modal with message that key was in use
 @dash.callback(
     dash.Output("base_page_toggle_twitch_button", "disabled", allow_duplicate=True),
     dash.Output("base_page_toggle_twitch_button", "color", allow_duplicate=True),

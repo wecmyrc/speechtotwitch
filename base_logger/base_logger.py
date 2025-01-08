@@ -39,7 +39,7 @@ def log_file():
     return log_file
 
 
-# [note] for gunicorn usage in future
+# NOTE for gunicorn usage in future
 # for gunicorn logging config https://stackoverflow.com/questions/41087790/how-to-override-gunicorns-logging-config-to-use-a-custom-formatter
 # class MyLogger(glogging.Logger):
 #     def setup(self, cfg):

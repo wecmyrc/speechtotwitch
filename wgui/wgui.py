@@ -23,7 +23,7 @@ def render_page(location):
     return base_page(location)
 
 
-# [note] for gunicorn start
+# NOTE for gunicorn start
 # def start():
 #     sys.excepthook = exc_handler
 #     flask_app = create_flask_app()
@@ -38,7 +38,7 @@ def main():
     flask_app = create_flask_app()
     dash_app = create_dash_app(flask_app)
     dash_app.title = "stt"
-    dash_app.run(debug=False)  # [note] with True crashes
+    dash_app.run(debug=False)  # NOTE with True crashes
 
 
 if __name__ == "__main__":

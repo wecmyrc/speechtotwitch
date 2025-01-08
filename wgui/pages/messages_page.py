@@ -289,7 +289,7 @@ def messages_list_item(data):
                 style={"display": "none"},
             ),
         ],
-        # [note] style={"backgroundColor": "#ff8787"},
+        # NOTE style={"backgroundColor": "#ff8787"},
         withBorder=True,
         radius="md",
         padding="xs",

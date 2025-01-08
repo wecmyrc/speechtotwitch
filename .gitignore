@@ -1,4 +1,4 @@
 *.pyc
-result/
 *.log
 *.db
+result

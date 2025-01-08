@@ -12,6 +12,7 @@ packages = [
   { include = "db/*.py" },
   { include = "voice" },
   { include = "wgui" },
+  { include = "tirc" },
 ]
 
 [tool.poetry.dependencies]
@@ -25,7 +26,7 @@ werkzeug = "2.0.1"
 dash-iconify = "0.1.2"
 pytz = "2024.1"
 notify-py = "0.3.43"
-twitch-chat-irc = "0.0.4"
+python-twitch-stream = "1.0.2"
 pyaudio = "0.2.14"
 
 [build-system]

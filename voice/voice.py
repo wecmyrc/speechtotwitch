@@ -9,7 +9,12 @@ import time
 import signal
 import json
 import time
-from twitch_chat_irc import twitch_chat_irc  # [note] in future get rid of this lib
+
+# i don't know why, but import below this doesn't work
+# from twitchstream.chat import TwitchChatStream
+
+# so i copied code to local module and it just works
+from tirc import TwitchChatStream
 
 import pyaudio as pa
 
@@ -55,7 +60,7 @@ class TwitchConnection:
             self.channel = channel
 
             if self.is_connected:
-                self.connection.close_connection()
+                self.connection = None
                 self.is_connected = False
 
             if (
@@ -64,16 +69,18 @@ class TwitchConnection:
                 and self.oauth != None
                 and self.channel != None
             ):
-                self.connection = twitch_chat_irc.TwitchChatIRC(
-                    self.username,
-                    self.oauth,
-                    suppress_print=True,
+                self.connection = TwitchChatStream(
+                    username=self.username,
+                    oauth=self.oauth,
+                    verbose=False,
                 )
+                self.connection.connect()
+                self.connection.join_channel(self.channel)
                 self.is_connected = True
 
     def send_message(self, message):
         try:
-            self.connection.send(self.channel, message)
+            self.connection.send_chat_message(message)
 
         except Exception as e:
             error = "".join(traceback.format_exc())
@@ -177,6 +184,9 @@ class Voice:
 
                 self.handle_raw_mic_q(rec)
                 self.handle_write_q()
+
+                if self.twitch.connection:
+                    self.twitch.connection.twitch_receive_messages()
 
         except KeyboardInterrupt:
             pass

@@ -39,7 +39,7 @@
                 dash-mantine-components = super.dash-mantine-components.overridePythonAttrs (old: {
                   buildInputs = (old.buildInputs or [ ]) ++ [ super.setuptools ];
                 });
-                twitch-chat-irc = super.twitch-chat-irc.overridePythonAttrs (old: {
+                python-twitch-stream = super.python-twitch-stream.overridePythonAttrs (old: {
                   buildInputs = (old.buildInputs or [ ]) ++ [ super.setuptools ];
                 });
                 dash-iconify = super.dash-iconify.overridePythonAttrs (old: {
